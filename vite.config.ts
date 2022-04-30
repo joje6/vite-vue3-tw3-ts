@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import svgLoader from 'vite-svg-loader';
 import { resolve } from 'path';
 
 export default defineConfig({
@@ -8,5 +9,11 @@ export default defineConfig({
       '@': resolve(__dirname, 'src')
     }
   },
-  plugins: [vue()]
+  plugins: [
+    vue(),
+    svgLoader({
+      defaultImport: 'component',
+      svgo: false
+    })
+  ]
 });

@@ -2,12 +2,12 @@
   <div class="hello">
     <h1 class="text-center my-10">{{ msg }}</h1>
 
+    <div class="text-center my-10">
+      <IconActivity class="text-sky-300/75 text-6xl" />
+    </div>
+
     <div class="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25 max-w-4xl mx-auto">
-      <div
-        class="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,#fff,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]"
-        style="background-position: 10px 10px"
-      ></div>
-      <div class="relative rounded-xl overflow-auto">
+      <div class="relative rounded-t-xl overflow-auto">
         <div class="grid grid-cols-1 sm:grid-cols-2">
           <div class="p-8 pt-7">
             <p class="mb-2 text-sm font-medium text-slate-500">Light mode</p>
@@ -256,6 +256,7 @@
           <li class="flex">
             <div
               class="group w-full flex flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 cursor-pointer hover:border-blue-500 hover:border-solid hover:bg-white hover:text-blue-500 dark:border-slate-700 dark:text-slate-100 dark:hover:border-blue-500 dark:hover:bg-transparent dark:hover:text-blue-500"
+              @click="create()"
             >
               <svg width="20" height="20" fill="currentColor" class="mb-1 text-slate-400 group-hover:text-blue-500">
                 <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z"></path>
@@ -270,18 +271,30 @@
 </template>
 
 <script lang="ts">
-  import { Options, Vue, Prop } from 'vue-property-decorator';
+  import { Options, Vue, Prop, Watch } from 'vue-property-decorator';
+  import IconActivity from 'bootstrap-icons/icons/activity.svg';
 
-  @Options({})
+  @Options({
+    components: {
+      IconActivity
+    }
+  })
   export default class HelloWorld extends Vue {
     @Prop() readonly msg!: string;
 
-    private test() {
-      // todo
+    private project = null;
+
+    private create() {
+      this.project = { name: 'my project' };
     }
 
     public async mounted() {
-      console.log('mounted', this.msg);
+      // console.log('mounted', this.msg);
+    }
+
+    @Watch('project')
+    private watch() {
+      // console.log('project', this.project);
     }
   }
 </script>
